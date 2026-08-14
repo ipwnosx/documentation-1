@@ -12,7 +12,11 @@ The first step in this process is to login to the MySQL command line where we wi
 things setup. To do so, simply run the command below and provide the Root MySQL account's password that you setup when
 installing MySQL. If you do not remember doing this, chances are you can just hit enter as no password is set.
 
-``` bash
+```sql
+# If using MariaDB (v11.0.0+)
+mariadb -u root -p
+
+# If using MySQL
 mysql -u root -p
 ```
 
@@ -39,12 +43,10 @@ CREATE DATABASE panel;
 
 ### Assigning permissions
 Finally, we need to tell MySQL that our pterodactyl user should have access to the panel database. To do this, simply
-run the command below. If you plan on also using this MySQL instance as a database host on the Panel you'll want to
-include the `WITH GRANT OPTION` (which we are doing here). If you won't be using this user as part of the host setup
-you can remove that.
+run the command below.
 
 ``` sql
-GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1';
 ```
 
 ## Creating a Database Host for Nodes
@@ -78,3 +80,5 @@ bind-address=0.0.0.0
 Restart MySQL/MariaDB to apply these changes. This will override the default MySQL configuration, which by default will only accept requests from localhost. Updating this will allow connections on all interfaces, and thus, external connections. Make sure to allow the MySQL port (default 3306) in your firewall.
 
 If your Database and Wings are on the same machine and won't need external access, you can also use the `docker0` interface IP address rather than `127.0.0.1`. This IP address can be found by running `ip addr | grep docker0`, and it likely looks like `172.x.x.x`.
+
+Starting with MySQL 8.0.13 / MariaDB 10.11 or above, `bind_address` now also accepts a comma-separated list of interfaces to give more control over what interfaces it will listen on and which not.

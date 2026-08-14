@@ -20,6 +20,10 @@ export function isExternal(path) {
   return outboundRE.test(path)
 }
 
+export function isPterodactylIo(path) {
+  return /https?:\/\/([^\/]*\.)?pterodactyl\.io/.test(path)
+}
+
 export function isMailto(path) {
   return /^mailto:/.test(path)
 }

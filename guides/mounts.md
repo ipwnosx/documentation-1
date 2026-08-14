@@ -19,8 +19,9 @@ You have to restart Wings to apply new changes to your Wings config.
 
 You have to configure mounts in admin Panel in order to use them with your servers. They consist of a source pad on the node and a target path where it will be mounted in the container.
 
-:::warning Path in the container
-Mounts cannot be mounted to or inside of `/home/container` or any subdirectory of it, nor can you cross-mount servers such as Server A's directory into Server B.
+::: tip Path in the container
+Mounts can be mounted to or inside of `/home/container` or any subdirectory of it. You can cross-mount servers such as Server A's directory into Server B.
+Keep in mind that the folder you want to mount into needs to exist for the mount to work.
 :::
 
 ### Creating a Mount
@@ -31,7 +32,7 @@ Mounts cannot be mounted to or inside of `/home/container` or any subdirectory o
    - **Name**: Name for your mount.
    - **Description**: Description for your mount.
    - **Source**: The absolute path to the folder or files on the Node machine.
-   - **Target**: The absolute path where the mount will be placed inside of your server, can **not** include `/home/container` in the path.
+   - **Target**: The absolute path where the mount will be placed inside of your server. If `/home/container` is in the path, make sure the folder exists beforehand.
    - **Read Only**: Whether the mount will be read-only for the servers using it.
    - **User Mountable**: Whether to allow users to self mount this mount.
 4. After creating the mount, you are required to add both **Eggs** and **Nodes** that this mount may be used on.
